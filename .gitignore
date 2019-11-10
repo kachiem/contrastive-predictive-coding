@@ -2,3 +2,5 @@
 
 .ipynb_checkpoints/
 models/
+spectrogram/memmap_dataset_stimulus/
+spectrogram/memmap_dataset_stimulus_vis/
