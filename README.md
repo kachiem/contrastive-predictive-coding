@@ -1,6 +1,6 @@
 ### Representation Learning with Contrastive Predictive Coding
 
-This repository contains a Keras implementation of the algorithm presented in the paper [Representation Learning with Contrastive Predictive Coding](https://arxiv.org/abs/1807.03748).
+This repository contains a Keras implementation of the algorithm presented in the paper [Representation Learning with Contrastive Predictive Coding](https://arxiv.org/abs/1807.03748), orginally forked from [David Tellez](https://github.com/davidtellez/contrastive-predictive-coding).
 
 The goal of unsupervised representation learning is to capture semantic information about the world, recognizing patterns in the data without using annotations. This paper presents a new method called Contrastive Predictive Coding (CPC) that can do so across multiple applications. The main ideas of the paper are:
 * Contrastive: it is trained using a contrastive approach, that is, the main model has to discern between *right* and *wrong* data sequences.
