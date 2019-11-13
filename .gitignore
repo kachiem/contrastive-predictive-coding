@@ -4,7 +4,7 @@
 models/
 
 # datasets
-spectrogram/memmap_dataset_stimulus/
-spectrogram/memmap_dataset_stimulus_vis/
 resources/memmap_dataset_stimulus/
 resources/memmap_dataset_stimulus_vis/
+spectrogram/memmap_dataset_stimulus/
+spectrogram/memmap_dataset_stimulus_vis/
