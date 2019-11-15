@@ -113,7 +113,7 @@ def network_cpc(image_shape, terms, predict_terms, code_size, learning_rate):
 
     # Model
     cpc_model = keras.models.Model(inputs=[x_input, y_input], outputs=dot_product_probs)
-
+    
     # Compile model
     cpc_model.compile(
         optimizer=keras.optimizers.Adam(lr=learning_rate),
@@ -141,10 +141,17 @@ def train_model(epochs, batch_size, output_dir, code_size, lr=1e-4, terms=4, pre
                         code_size=code_size, learning_rate=lr)
 
     # Callbacks
-    callbacks = [keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=1/3, patience=2, min_lr=1e-4)]
+    history = keras.callbacks.History()
+    reduce_LR_plateau = keras.callbacks.ReduceLROnPlateau(
+        monitor='val_loss', 
+        factor=1/3, 
+        patience=2, 
+        min_lr=1e-4
+    )
+    callbacks = [history]
 
     # Trains the model
-    model.fit_generator(
+    modeled = model.fit_generator(
         generator=train_data,
         steps_per_epoch=len(train_data),
         validation_data=validation_data,
@@ -161,6 +168,25 @@ def train_model(epochs, batch_size, output_dir, code_size, lr=1e-4, terms=4, pre
     # Saves the encoder alone
     encoder = model.layers[1].layer
     encoder.save(join(output_dir, 'encoder.h5'))
+    
+    # plotting loss
+    train_loss = modeled.history['loss']
+    val_loss = modeled.history['val_loss']
+    epoch_count = range(1, epochs+1)    
+    
+    import matplotlib.pyplot as plt
+    plt.plot(epoch_count, train_loss, 'r--')
+    plt.plot(epoch_count, val_loss, 'b-')
+    plt.legend(['Training Loss', 'Validation Loss'])
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    
+    import time
+    t = time.localtime()
+    timestamp = time.strftime('%b-%d-%Y_%H%M', t)
+    plt.savefig(output_dir + "/loss/" + timestamp + ".png")
+
+    return model
 
 
 if __name__ == "__main__":

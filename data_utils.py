@@ -28,11 +28,13 @@ class MnistHandler(object):
         if sys.version_info[0] == 2:
             from urllib import urlretrieve
         else:
-            from urllib.request import urlretrieve
+            #from urllib.request import urlretrieve
+            import requests
 
         def download(filename, source='http://yann.lecun.com/exdb/mnist/'):
             print("Downloading %s" % filename)
-            urlretrieve(source + filename, filename)
+            requests.get(source + filename, filename)
+            
 
         # We then define functions for loading MNIST images and labels.
         # For convenience, they also download the requested files if needed.
